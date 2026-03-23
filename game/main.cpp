@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Paddle.h"
-#include "Ball.h"
+#include "Arena.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -9,10 +8,9 @@ int main(void)
 {
   sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "SFML window");
 
-  Paddle *p1 = new Paddle(10, 10, HEIGHT);
-  Ball *ball = new Ball(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
-
   sf::Clock clock;
+
+  Arena *arena = new Arena(WIDTH, HEIGHT);
 
   while (window.isOpen())
   {
@@ -24,21 +22,11 @@ int main(void)
         window.close();
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-    {
-      p1->moveUp(deltaTime);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-    {
-      p1->moveDown(deltaTime);
-    }
+    arena->update(deltaTime);
 
     window.clear();
 
-    ball->draw(&window);
-    p1->draw(&window);
-
-    ball->update(deltaTime);
+    arena->draw(&window);
 
     window.display();
   }
