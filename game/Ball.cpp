@@ -46,3 +46,23 @@ void Ball::update(sf::Time time)
     xPosition = 0;
   }
 }
+
+void Ball::invertX()
+{
+  xVelocity *= -1;
+}
+
+void Ball::invertY()
+{
+  yVelocity *= -1;
+}
+
+float Ball::getRadius()
+{
+  return radius;
+}
+
+sf::Vector2f Ball::getPosition()
+{
+  return {xPosition, yPosition};
+}

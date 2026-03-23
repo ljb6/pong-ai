@@ -27,3 +27,13 @@ void Paddle::moveDown(sf::Time time)
   if (yPosition < (maxY - height))
     yPosition += (velocity * time.asSeconds());
 }
+
+sf::Vector2f Paddle::getPosition()
+{
+  return {xPosition, yPosition};
+}
+
+sf::Vector2f Paddle::getSize()
+{
+  return {width, height};
+}

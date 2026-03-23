@@ -32,4 +32,16 @@ void Arena::update(sf::Time time)
     paddle2->moveUp(time);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
     paddle2->moveDown(time);
+
+  sf::Vector2f ballPosition = ball->getPosition();
+
+  if ((ballPosition.x <= paddle1->getPosition().x + paddle1->getSize().x) and (ballPosition.x + ball->getRadius() * 2 >= paddle1->getPosition().x) and (ballPosition.y <= paddle1->getPosition().y + paddle1->getSize().y) and (ballPosition.y + ball->getRadius() * 2 >= paddle1->getPosition().y))
+  {
+    ball->invertX();
+  }
+
+  if ((ballPosition.x <= paddle2->getPosition().x + paddle2->getSize().x) and (ballPosition.x + ball->getRadius() * 2 >= paddle2->getPosition().x) and (ballPosition.y <= paddle2->getPosition().y + paddle2->getSize().y) and (ballPosition.y + ball->getRadius() * 2 >= paddle2->getPosition().y))
+  {
+    ball->invertX();
+  }
 }

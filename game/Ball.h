@@ -9,8 +9,14 @@ public:
   void draw(sf::RenderWindow *window);
   void update(sf::Time time);
 
+  void invertX();
+  void invertY();
+
+  float getRadius();
+  sf::Vector2f getPosition();
+
 private:
-  int radius = 15;
+  float radius = 15;
 
   float xPosition;
   float yPosition;
