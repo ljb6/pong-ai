@@ -62,6 +62,11 @@ float Ball::getRadius()
   return radius;
 }
 
+float Ball::getDiameter()
+{
+  return (radius * 2);
+}
+
 sf::Vector2f Ball::getPosition()
 {
   return {xPosition, yPosition};

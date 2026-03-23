@@ -13,6 +13,7 @@ public:
   void invertY();
 
   float getRadius();
+  float getDiameter();
   sf::Vector2f getPosition();
 
 private:

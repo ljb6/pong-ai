@@ -33,15 +33,21 @@ void Arena::update(sf::Time time)
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
     paddle2->moveDown(time);
 
+  if (checkPaddleCollision(paddle1) or checkPaddleCollision(paddle2))
+  {
+    ball->invertX();
+  }
+}
+
+bool Arena::checkPaddleCollision(Paddle *paddle)
+{
   sf::Vector2f ballPosition = ball->getPosition();
+  sf::Vector2f paddlePosition = paddle->getPosition();
+  sf::Vector2f paddleSize = paddle->getSize();
+  float ballDiameter = ball->getDiameter();
 
-  if ((ballPosition.x <= paddle1->getPosition().x + paddle1->getSize().x) and (ballPosition.x + ball->getRadius() * 2 >= paddle1->getPosition().x) and (ballPosition.y <= paddle1->getPosition().y + paddle1->getSize().y) and (ballPosition.y + ball->getRadius() * 2 >= paddle1->getPosition().y))
-  {
-    ball->invertX();
-  }
-
-  if ((ballPosition.x <= paddle2->getPosition().x + paddle2->getSize().x) and (ballPosition.x + ball->getRadius() * 2 >= paddle2->getPosition().x) and (ballPosition.y <= paddle2->getPosition().y + paddle2->getSize().y) and (ballPosition.y + ball->getRadius() * 2 >= paddle2->getPosition().y))
-  {
-    ball->invertX();
-  }
+  return (ballPosition.x <= paddlePosition.x + paddleSize.x) and
+         (ballPosition.x + ballDiameter >= paddlePosition.x) and
+         (ballPosition.y <= paddlePosition.y + paddleSize.y) and
+         (ballPosition.y + ballDiameter >= paddlePosition.y);
 }
