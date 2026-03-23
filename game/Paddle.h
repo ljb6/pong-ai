@@ -10,6 +10,7 @@ public:
   void moveUp(sf::Time time);
   void moveDown(sf::Time time);
 
+  void setPosition(float yPosition);
   sf::Vector2f getPosition();
   sf::Vector2f getSize();
 

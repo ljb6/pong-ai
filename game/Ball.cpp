@@ -33,18 +33,6 @@ void Ball::update(sf::Time time)
     yVelocity *= -1;
     yPosition = 0;
   }
-
-  if (xPosition >= (maxX - (radius * 2)))
-  {
-    xVelocity *= -1;
-    xPosition = (maxX - (radius * 2));
-  }
-
-  if (xPosition <= 0)
-  {
-    xVelocity *= -1;
-    xPosition = 0;
-  }
 }
 
 void Ball::invertX()
@@ -65,6 +53,12 @@ float Ball::getRadius()
 float Ball::getDiameter()
 {
   return (radius * 2);
+}
+
+void Ball::setPosition(float xPosition, float yPosition)
+{
+  this->xPosition = xPosition;
+  this->yPosition = yPosition;
 }
 
 sf::Vector2f Ball::getPosition()

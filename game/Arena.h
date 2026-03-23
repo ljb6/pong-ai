@@ -18,5 +18,10 @@ private:
   Paddle *paddle2;
   Ball *ball;
 
+  int paddle1Points = 0;
+  int paddle2Points = 0;
+
+  void checkScore();
   bool checkPaddleCollision(Paddle *paddle);
+  void resetArena();
 };

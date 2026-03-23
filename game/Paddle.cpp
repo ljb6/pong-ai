@@ -28,6 +28,11 @@ void Paddle::moveDown(sf::Time time)
     yPosition += (velocity * time.asSeconds());
 }
 
+void Paddle::setPosition(float yPosition)
+{
+  this->yPosition = yPosition;
+}
+
 sf::Vector2f Paddle::getPosition()
 {
   return {xPosition, yPosition};

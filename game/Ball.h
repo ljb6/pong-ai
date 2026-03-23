@@ -14,6 +14,7 @@ public:
 
   float getRadius();
   float getDiameter();
+  void setPosition(float xPosition, float yPosition);
   sf::Vector2f getPosition();
 
 private:

@@ -41,6 +41,8 @@ void Arena::update(sf::Time time)
   {
     ball->invertX();
   }
+
+  checkScore();
 }
 
 bool Arena::checkPaddleCollision(Paddle *paddle)
@@ -54,4 +56,27 @@ bool Arena::checkPaddleCollision(Paddle *paddle)
          (ballPosition.x + ballDiameter >= paddlePosition.x) and
          (ballPosition.y <= paddlePosition.y + paddleSize.y) and
          (ballPosition.y + ballDiameter >= paddlePosition.y);
+}
+
+void Arena::checkScore()
+{
+  sf::Vector2f ballPosition = ball->getPosition();
+
+  if (ballPosition.x < 0)
+  {
+    paddle2Points++;
+    resetArena();
+  }
+  else if (ballPosition.x > width)
+  {
+    paddle1Points++;
+    resetArena();
+  }
+}
+
+void Arena::resetArena()
+{
+  paddle1->setPosition(height / 2 - paddle1->getSize().y / 2);
+  paddle2->setPosition(height / 2 - paddle2->getSize().y / 2);
+  ball->setPosition(width / 2, height / 2);
 }
