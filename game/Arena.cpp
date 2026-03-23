@@ -5,8 +5,12 @@ Arena::Arena(float width, float height)
   this->width = width;
   this->height = height;
 
-  paddle1 = new Paddle(10, 10, height);
-  paddle2 = new Paddle(width - 20, 10, height);
+  float wallPadding = 10;
+  float initialY = 10;
+  float paddleWidth = 10;
+
+  paddle1 = new Paddle(wallPadding, initialY, height);
+  paddle2 = new Paddle(width - wallPadding - paddleWidth, initialY, height);
   ball = new Ball(width / 2, height / 2, width, height);
 }
 
