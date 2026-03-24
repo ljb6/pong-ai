@@ -14,6 +14,8 @@ add_executable(PongAI
   game/Paddle.cpp
   game/Ball.cpp
   game/Arena.cpp
+  neural/Layer.cpp
+  neural/NeuralNetwork.cpp
 )
 
 find_package(SFML 3 COMPONENTS Graphics REQUIRED)
