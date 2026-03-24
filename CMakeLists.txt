@@ -16,6 +16,7 @@ add_executable(PongAI
   game/Arena.cpp
   neural/Layer.cpp
   neural/NeuralNetwork.cpp
+  agent/Agent.cpp
 )
 
 find_package(SFML 3 COMPONENTS Graphics REQUIRED)

@@ -9,6 +9,7 @@ Arena::Arena(float width, float height) : font("assets/fonts/Geneva.ttf"), text_
   float initial_y = 10;
   float paddle_width = 10;
 
+  agent = new Agent({4, 8, 3}, width, height);
   paddle_1 = new Paddle(wall_padding, initial_y, height);
   paddle_2 = new Paddle(width - wall_padding - paddle_width, initial_y, height);
   ball = new Ball(width / 2, height / 2, width, height);
@@ -41,9 +42,13 @@ void Arena::update(sf::Time time)
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     paddle_1->move_down(time);
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+  int paddle_2_move = agent->decide({paddle_1->get_position().y,
+                                     paddle_2->get_position().y,
+                                     ball->get_position().x,
+                                     ball->get_position().y});
+  if (paddle_2_move == 1)
     paddle_2->move_up(time);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+  else if (paddle_2_move == 2)
     paddle_2->move_down(time);
 
   if (check_paddle_collision(paddle_1) or check_paddle_collision(paddle_2))

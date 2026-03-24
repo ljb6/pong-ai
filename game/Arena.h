@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Paddle.h"
 #include "Ball.h"
+#include "../agent/Agent.h"
+
 class Arena
 {
 public:
@@ -13,6 +15,8 @@ public:
 private:
   float width;
   float height;
+
+  Agent *agent;
 
   Ball *ball;
 
