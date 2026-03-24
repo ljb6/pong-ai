@@ -16,17 +16,17 @@ private:
 
   Ball *ball;
 
-  Paddle *paddle1;
-  Paddle *paddle2;
+  Paddle *paddle_1;
+  Paddle *paddle_2;
 
-  int paddle1Points = 0;
-  int paddle2Points = 0;
+  int paddle_1_points = 0;
+  int paddle_2_points = 0;
 
   sf::Font font;
-  sf::Text text1;
-  sf::Text text2;
+  sf::Text text_1;
+  sf::Text text_2;
 
-  void checkScore();
-  bool checkPaddleCollision(Paddle *paddle);
-  void resetArena();
+  void check_score();
+  bool check_paddle_collision(Paddle *paddle);
+  void reset_arena();
 };

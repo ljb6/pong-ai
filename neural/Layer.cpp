@@ -18,7 +18,7 @@ Layer::Layer(int n_inputs, int n_neurons)
   std::fill(bias.begin(), bias.end(), 0);
 }
 
-std::vector<float> Layer::forwardPass(const std::vector<float> &inputs)
+std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
 {
   std::vector<float> output(weights.size());
 

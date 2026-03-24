@@ -14,7 +14,7 @@ int main(void)
 
   while (window.isOpen())
   {
-    sf::Time deltaTime = clock.restart();
+    sf::Time delta_time = clock.restart();
 
     while (const std::optional event = window.pollEvent())
     {
@@ -22,7 +22,7 @@ int main(void)
         window.close();
     }
 
-    arena->update(deltaTime);
+    arena->update(delta_time);
 
     window.clear();
 

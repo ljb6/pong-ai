@@ -1,10 +1,10 @@
 #include "Paddle.h"
 
-Paddle::Paddle(float xInitialPosition, float yInitialPosition, float maxY)
+Paddle::Paddle(float x_initial_position, float y_initial_position, float max_y)
 {
-  xPosition = xInitialPosition;
-  yPosition = yInitialPosition;
-  this->maxY = maxY;
+  x_position = x_initial_position;
+  y_position = y_initial_position;
+  this->max_y = max_y;
 }
 
 Paddle::~Paddle() {}
@@ -12,33 +12,33 @@ Paddle::~Paddle() {}
 void Paddle::draw(sf::RenderWindow *window)
 {
   sf::RectangleShape rectangle({width, height});
-  rectangle.setPosition({xPosition, yPosition});
+  rectangle.setPosition({x_position, y_position});
   window->draw(rectangle);
 }
 
-void Paddle::moveUp(sf::Time time)
+void Paddle::move_up(sf::Time time)
 {
-  if (yPosition > 0)
-    yPosition -= (velocity * time.asSeconds());
+  if (y_position > 0)
+    y_position -= (velocity * time.asSeconds());
 }
 
-void Paddle::moveDown(sf::Time time)
+void Paddle::move_down(sf::Time time)
 {
-  if (yPosition < (maxY - height))
-    yPosition += (velocity * time.asSeconds());
+  if (y_position < (max_y - height))
+    y_position += (velocity * time.asSeconds());
 }
 
-void Paddle::setPosition(float yPosition)
+void Paddle::set_position(float y_position)
 {
-  this->yPosition = yPosition;
+  this->y_position = y_position;
 }
 
-sf::Vector2f Paddle::getPosition()
+sf::Vector2f Paddle::get_position()
 {
-  return {xPosition, yPosition};
+  return {x_position, y_position};
 }
 
-sf::Vector2f Paddle::getSize()
+sf::Vector2f Paddle::get_size()
 {
   return {width, height};
 }

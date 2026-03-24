@@ -1,11 +1,11 @@
 #include "Ball.h"
 
-Ball::Ball(float xInitialPosition, float yInitialPosition, float maxX, float maxY)
+Ball::Ball(float x_initial_position, float y_initial_position, float max_x, float max_y)
 {
-  xPosition = xInitialPosition;
-  yPosition = yInitialPosition;
-  this->maxX = maxX;
-  this->maxY = maxY;
+  x_position = x_initial_position;
+  y_position = y_initial_position;
+  this->max_x = max_x;
+  this->max_y = max_y;
 }
 
 Ball::~Ball() {}
@@ -13,55 +13,55 @@ Ball::~Ball() {}
 void Ball::draw(sf::RenderWindow *window)
 {
   sf::CircleShape circle(radius);
-  circle.setPosition({xPosition, yPosition});
+  circle.setPosition({x_position, y_position});
   window->draw(circle);
 }
 
 void Ball::update(sf::Time time)
 {
-  xPosition += (xVelocity * time.asSeconds());
-  yPosition += (yVelocity * time.asSeconds());
+  x_position += (x_velocity * time.asSeconds());
+  y_position += (y_velocity * time.asSeconds());
 
-  if (yPosition >= (maxY - (radius * 2)))
+  if (y_position >= (max_y - (radius * 2)))
   {
-    yVelocity *= -1;
-    yPosition = (maxY - (radius * 2));
+    y_velocity *= -1;
+    y_position = (max_y - (radius * 2));
   }
 
-  if (yPosition <= 0)
+  if (y_position <= 0)
   {
-    yVelocity *= -1;
-    yPosition = 0;
+    y_velocity *= -1;
+    y_position = 0;
   }
 }
 
-void Ball::invertX()
+void Ball::invert_x()
 {
-  xVelocity *= -1;
+  x_velocity *= -1;
 }
 
-void Ball::invertY()
+void Ball::invert_y()
 {
-  yVelocity *= -1;
+  y_velocity *= -1;
 }
 
-float Ball::getRadius()
+float Ball::get_radius()
 {
   return radius;
 }
 
-float Ball::getDiameter()
+float Ball::get_diameter()
 {
   return (radius * 2);
 }
 
-void Ball::setPosition(float xPosition, float yPosition)
+void Ball::set_position(float x_position, float y_position)
 {
-  this->xPosition = xPosition;
-  this->yPosition = yPosition;
+  this->x_position = x_position;
+  this->y_position = y_position;
 }
 
-sf::Vector2f Ball::getPosition()
+sf::Vector2f Ball::get_position()
 {
-  return {xPosition, yPosition};
+  return {x_position, y_position};
 }

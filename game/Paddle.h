@@ -3,25 +3,25 @@
 class Paddle
 {
 public:
-  Paddle(float xInitialPosition, float yInitialPosition, float maxY);
+  Paddle(float x_initial_position, float y_initial_position, float max_y);
   ~Paddle();
 
   void draw(sf::RenderWindow *window);
-  void moveUp(sf::Time time);
-  void moveDown(sf::Time time);
+  void move_up(sf::Time time);
+  void move_down(sf::Time time);
 
-  void setPosition(float yPosition);
-  sf::Vector2f getPosition();
-  sf::Vector2f getSize();
+  void set_position(float y_position);
+  sf::Vector2f get_position();
+  sf::Vector2f get_size();
 
 private:
-  float xPosition;
-  float yPosition;
+  float x_position;
+  float y_position;
 
   float width = 10;
   float height = 100;
 
   float velocity = 300;
 
-  float maxY;
+  float max_y;
 };
