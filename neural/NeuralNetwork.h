@@ -10,4 +10,6 @@ public:
 
 private:
   std::vector<Layer> layers;
+
+  std::vector<float> softmax(std::vector<float> input);
 };
