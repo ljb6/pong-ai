@@ -14,12 +14,17 @@ private:
   float width;
   float height;
 
+  Ball *ball;
+
   Paddle *paddle1;
   Paddle *paddle2;
-  Ball *ball;
 
   int paddle1Points = 0;
   int paddle2Points = 0;
+
+  sf::Font font;
+  sf::Text text1;
+  sf::Text text2;
 
   void checkScore();
   bool checkPaddleCollision(Paddle *paddle);

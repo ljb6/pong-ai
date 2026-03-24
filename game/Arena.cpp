@@ -1,6 +1,6 @@
 #include "Arena.h"
 
-Arena::Arena(float width, float height)
+Arena::Arena(float width, float height) : font("assets/fonts/Geneva.ttf"), text1(font), text2(font)
 {
   this->width = width;
   this->height = height;
@@ -21,6 +21,15 @@ void Arena::draw(sf::RenderWindow *window)
   ball->draw(window);
   paddle1->draw(window);
   paddle2->draw(window);
+
+  text1 = sf::Text(font, "Score: " + std::to_string(paddle1Points), 20);
+  text2 = sf::Text(font, "Score: " + std::to_string(paddle2Points), 20);
+
+  text1.setPosition({10, height - 30});
+  text2.setPosition({800 - 90, height - 30});
+
+  window->draw(text1);
+  window->draw(text2);
 }
 
 void Arena::update(sf::Time time)
