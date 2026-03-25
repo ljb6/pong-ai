@@ -1,5 +1,6 @@
 #include "Agent.h"
 #include <algorithm>
+#include <iostream>
 
 Agent::Agent(std::vector<int> n_layers, float width, float height) : nn(n_layers)
 {
@@ -31,6 +32,17 @@ int Agent::decide(const std::vector<float> &state)
 {
   std::vector<float> normalized = normalize(state);
   std::vector<float> forwarded = nn.forward(normalized);
+
+  static int frame_count = 0;
+  frame_count++;
+
+  if (frame_count % 100 == 0)
+  {
+    std::cout << "probs: ";
+    for (float p : forwarded)
+      std::cout << p << " ";
+    std::cout << "\n";
+  }
 
   int choosen_action = choose_action(forwarded);
 

@@ -85,11 +85,17 @@ void Arena::check_score()
   if (ball_position.x < 0)
   {
     paddle_2_points++;
+
+    agent->learn(1);
+
     reset_arena();
   }
   else if (ball_position.x > width)
   {
     paddle_1_points++;
+
+    agent->learn(-1);
+
     reset_arena();
   }
 }
