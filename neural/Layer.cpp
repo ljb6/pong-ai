@@ -18,7 +18,7 @@ Layer::Layer(int n_inputs, int n_neurons)
   std::fill(bias.begin(), bias.end(), 0);
 }
 
-std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
+std::vector<float> Layer::forward_pass(const std::vector<float> &inputs, bool apply_relu)
 {
   std::vector<float> output(weights.size());
   last_output.clear();
@@ -35,13 +35,16 @@ std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
 
     last_output[i] = sum;
 
-    output[i] = std::max(0.0f, sum);
+    if (apply_relu)
+      output[i] = std::max(0.0f, sum);
+    else
+      output[i] = sum;
   }
 
   return output;
 }
 
-std::vector<float> Layer::backward_pass(const std::vector<float> &grad_output, float learning_rate)
+std::vector<float> Layer::backward_pass(const std::vector<float> &grad_output, float learning_rate, bool apply_relu)
 {
   size_t n_neurons = weights.size();
   size_t n_inputs = last_input.size();
@@ -50,7 +53,7 @@ std::vector<float> Layer::backward_pass(const std::vector<float> &grad_output, f
 
   for (size_t i = 0; i < n_neurons; i++)
   {
-    float delta = grad_output[i] * (last_output[i] > 0 ? 1.0f : 0.0f);
+    float delta = apply_relu ? grad_output[i] * (last_output[i] > 0 ? 1.0f : 0.0f) : grad_output[i];
 
     for (size_t j = 0; j < n_inputs; j++)
     {

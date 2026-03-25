@@ -26,5 +26,5 @@ private:
 
   std::vector<Episode> history;
 
-  float learning_rate = 0.01;
+  float learning_rate = 0.0001;
 };
