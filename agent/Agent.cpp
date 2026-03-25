@@ -1,6 +1,7 @@
 #include "Agent.h"
 #include <algorithm>
 #include <iostream>
+#include <random>
 
 Agent::Agent(std::vector<int> n_layers, float width, float height) : nn(n_layers)
 {
@@ -13,7 +14,9 @@ Agent::Agent(std::vector<int> n_layers, float width, float height) : nn(n_layers
 // 2 - move down
 int Agent::choose_action(const std::vector<float> &probs)
 {
-  return std::max_element(probs.begin(), probs.end()) - probs.begin();
+  static std::mt19937 rng(std::random_device{}());
+  std::discrete_distribution<int> dist(probs.begin(), probs.end());
+  return dist(rng);
 }
 
 std::vector<float> Agent::normalize(const std::vector<float> &state)
