@@ -10,4 +10,6 @@ public:
 private:
   std::vector<std::vector<float>> weights;
   std::vector<float> bias;
+  std::vector<float> last_input;
+  std::vector<float> last_output;
 };

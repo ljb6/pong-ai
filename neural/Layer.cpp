@@ -21,6 +21,10 @@ Layer::Layer(int n_inputs, int n_neurons)
 std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
 {
   std::vector<float> output(weights.size());
+  last_output.clear();
+  last_output.resize(weights.size());
+
+  last_input = inputs;
 
   for (size_t i = 0; i < weights.size(); i++)
   {
@@ -28,6 +32,8 @@ std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
 
     for (size_t j = 0; j < weights[i].size(); j++)
       sum += (inputs[j] * weights[i][j]);
+
+    last_output[i] = sum;
 
     output[i] = std::max(0.0f, sum);
   }
