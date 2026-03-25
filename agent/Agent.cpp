@@ -31,7 +31,16 @@ int Agent::decide(const std::vector<float> &state)
 {
   std::vector<float> normalized = normalize(state);
   std::vector<float> forwarded = nn.forward(normalized);
-  return choose_action(forwarded);
+
+  int choosen_action = choose_action(forwarded);
+
+  Episode episode = {
+      forwarded,
+      choosen_action};
+
+  history.push_back(episode);
+
+  return choosen_action;
 }
 
 std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, int selected_i, int reward)
@@ -48,4 +57,16 @@ std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, in
   }
 
   return grad;
+}
+
+void Agent::learn(int reward)
+{
+  size_t h_size = history.size();
+  for (size_t i = 0; i < h_size; i++)
+  {
+    std::vector<float> grad = compute_grad(history[i].probs, history[i].decision, reward);
+    nn.backward(grad, learning_rate);
+  }
+
+  history.clear();
 }
