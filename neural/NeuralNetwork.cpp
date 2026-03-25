@@ -1,4 +1,5 @@
 #include "NeuralNetwork.h"
+#include <algorithm>
 #include <cmath>
 
 NeuralNetwork::NeuralNetwork(std::vector<int> n_layers)
@@ -30,11 +31,12 @@ std::vector<float> NeuralNetwork::softmax(std::vector<float> input)
   size_t size = input.size();
   std::vector<float> output(size);
 
+  float max_val = *std::max_element(input.begin(), input.end());
   float sum = 0;
 
   for (size_t i = 0; i < size; i++)
   {
-    output[i] = std::exp(input[i]);
+    output[i] = std::exp(input[i] - max_val);
     sum += output[i];
   }
 
