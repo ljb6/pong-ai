@@ -1,4 +1,5 @@
 #include "Arena.h"
+#include <random>
 
 Arena::Arena(float width, float height) : font("assets/fonts/Geneva.ttf"), text_1(font), text_2(font)
 {
@@ -104,5 +105,7 @@ void Arena::reset_arena()
 {
   paddle_1->set_position(height / 2 - paddle_1->get_size().y / 2);
   paddle_2->set_position(height / 2 - paddle_2->get_size().y / 2);
-  ball->set_position(width / 2, height / 2);
+  static std::mt19937 rng(std::random_device{}());
+  std::uniform_real_distribution<float> dist(ball->get_diameter(), height - ball->get_diameter());
+  ball->set_position(width / 2, dist(rng));
 }
