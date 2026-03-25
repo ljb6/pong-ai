@@ -33,7 +33,7 @@ void Arena::draw(sf::RenderWindow *window)
   text_2 = sf::Text(font, "Score: " + std::to_string(paddle_2_points), 20);
 
   text_1.setPosition({10, height - 30});
-  text_2.setPosition({800 - 90, height - 30});
+  text_2.setPosition({width - 90, height - 30});
 
   window->draw(text_1);
   window->draw(text_2);
