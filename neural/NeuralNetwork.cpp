@@ -45,3 +45,13 @@ std::vector<float> NeuralNetwork::softmax(std::vector<float> input)
 
   return output;
 }
+
+std::vector<float> NeuralNetwork::backward(const std::vector<float> &grad_output, float learning_rate)
+{
+  std::vector<float> grad = grad_output;
+
+  for (int i = layers.size() - 1; i >= 0; i--)
+    grad = layers[i].backward_pass(grad, learning_rate);
+
+  return grad;
+}

@@ -7,6 +7,7 @@ public:
   NeuralNetwork(std::vector<int> n_layers);
 
   std::vector<float> forward(const std::vector<float> &inputs);
+  std::vector<float> backward(const std::vector<float> &grad_output, float learning_rate);
 
 private:
   std::vector<Layer> layers;
