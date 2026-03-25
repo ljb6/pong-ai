@@ -40,3 +40,25 @@ std::vector<float> Layer::forward_pass(const std::vector<float> &inputs)
 
   return output;
 }
+
+std::vector<float> Layer::backward_pass(const std::vector<float> &grad_output, float learning_rate)
+{
+  size_t n_neurons = weights.size();
+  size_t n_inputs = last_input.size();
+
+  std::vector<float> grad_input(n_inputs, 0.0f);
+
+  for (size_t i = 0; i < n_neurons; i++)
+  {
+    float delta = grad_output[i] * (last_output[i] > 0 ? 1.0f : 0.0f);
+
+    for (size_t j = 0; j < n_inputs; j++)
+    {
+      grad_input[j] += delta * weights[i][j];
+      weights[i][j] -= learning_rate * delta * last_input[j];
+    }
+    bias[i] -= learning_rate * delta;
+  }
+
+  return grad_input;
+}
