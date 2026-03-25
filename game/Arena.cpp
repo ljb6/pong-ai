@@ -15,7 +15,13 @@ Arena::Arena(float width, float height) : font("assets/fonts/Geneva.ttf"), text_
   ball = new Ball(width / 2, height / 2, width, height);
 }
 
-Arena::~Arena() {}
+Arena::~Arena()
+{
+  delete agent;
+  delete ball;
+  delete paddle_1;
+  delete paddle_2;
+}
 
 void Arena::draw(sf::RenderWindow *window)
 {

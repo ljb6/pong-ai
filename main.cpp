@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Arena.h"
+#include "game/Arena.h"
 // #include "../neural/NeuralNetwork.h"
 // #include <iostream>
 
@@ -20,7 +20,7 @@ int main(void)
 
   sf::Clock clock;
 
-  Arena *arena = new Arena(WIDTH, HEIGHT);
+  Arena arena(WIDTH, HEIGHT);
 
   while (window.isOpen())
   {
@@ -32,11 +32,11 @@ int main(void)
         window.close();
     }
 
-    arena->update(delta_time);
+    arena.update(delta_time);
 
     window.clear();
 
-    arena->draw(&window);
+    arena.draw(&window);
 
     window.display();
   }

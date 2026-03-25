@@ -10,7 +10,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 add_executable(PongAI
-  game/main.cpp
+  main.cpp
   game/Paddle.cpp
   game/Ball.cpp
   game/Arena.cpp
