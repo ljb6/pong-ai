@@ -78,7 +78,10 @@ std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, in
 
 void Agent::learn(int reward)
 {
-  float discounted_reward = reward;
+  baseline = baseline_decay * baseline + (1 - baseline_decay) * reward;
+  float adjusted_reward = reward - baseline;
+
+  float discounted_reward = adjusted_reward;
 
   for (int i = history.size() - 1; i >= 0; i--)
   {

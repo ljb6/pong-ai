@@ -30,4 +30,6 @@ private:
 
   float learning_rate = 0.0001;
   float discount_factor = 0.99;
+  float baseline = 0;
+  float baseline_decay = 0.99;
 };
