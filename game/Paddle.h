@@ -3,7 +3,7 @@
 class Paddle
 {
 public:
-  Paddle(float x_initial_position, float y_initial_position, float max_y);
+  Paddle(float x_initial_position, float y_initial_position, float max_y, float velocity = 1200);
   ~Paddle();
 
   void draw(sf::RenderWindow *window);
@@ -21,7 +21,7 @@ private:
   float width = 10;
   float height = 100;
 
-  float velocity = 1200;
+  float velocity;
 
   float max_y;
 };

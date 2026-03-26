@@ -1,10 +1,11 @@
 #include "Paddle.h"
 
-Paddle::Paddle(float x_initial_position, float y_initial_position, float max_y)
+Paddle::Paddle(float x_initial_position, float y_initial_position, float max_y, float velocity)
 {
   x_position = x_initial_position;
   y_position = y_initial_position;
   this->max_y = max_y;
+  this->velocity = velocity;
 }
 
 Paddle::~Paddle() {}

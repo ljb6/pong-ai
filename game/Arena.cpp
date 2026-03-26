@@ -6,7 +6,7 @@ Arena::Arena(float width, float height)
       height(height),
       agent({4, 8, 3}, width, height),
       ball(width / 2, height / 2, width, height),
-      paddle_1(wall_padding, 10, height),
+      paddle_1(wall_padding, 10, height, 600),
       paddle_2(width - wall_padding - paddle_width, 10, height),
       font("assets/fonts/Geneva.ttf"),
       text_1(font),
