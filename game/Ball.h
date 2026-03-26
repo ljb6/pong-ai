@@ -27,8 +27,8 @@ private:
   float x_position;
   float y_position;
 
-  float x_velocity = 400;
-  float y_velocity = 400;
+  float x_velocity = 800;
+  float y_velocity = 800;
 
   float max_x;
   float max_y;
