@@ -1,6 +1,8 @@
 #include "NeuralNetwork.h"
 #include <algorithm>
 #include <cmath>
+#include <fstream>
+#include <iostream>
 
 NeuralNetwork::NeuralNetwork(std::vector<int> n_layers)
 {
@@ -56,4 +58,37 @@ std::vector<float> NeuralNetwork::backward(const std::vector<float> &grad_output
     grad = layers[i].backward_pass(grad, learning_rate);
 
   return grad;
+}
+
+void NeuralNetwork::save(std::string filename)
+{
+  std::string path = "../" + filename;
+
+  std::ofstream file(path);
+
+  if (!file.is_open())
+  {
+    std::cerr << "Error: could not open file for saving\n";
+    return;
+  }
+
+  for (size_t i = 0; i < layers.size(); i++)
+  {
+    layers[i].save(file);
+  }
+}
+
+void NeuralNetwork::load(std::string filename)
+{
+  std::string path = "../" + filename;
+
+  std::ifstream file(path);
+
+  if (!file.is_open())
+    return;
+
+  for (size_t i = 0; i < layers.size(); i++)
+  {
+    layers[i].load(file);
+  }
 }

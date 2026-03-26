@@ -1,4 +1,5 @@
 #include <vector>
+#include <fstream>
 
 class Layer
 {
@@ -7,6 +8,9 @@ public:
 
   std::vector<float> forward_pass(const std::vector<float> &inputs, bool apply_relu = true);
   std::vector<float> backward_pass(const std::vector<float> &grad_output, float learning_rate, bool apply_relu = true);
+
+  void save(std::ofstream &file);
+  void load(std::ifstream &file);
 
 private:
   std::vector<std::vector<float>> weights;

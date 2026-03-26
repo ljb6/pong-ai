@@ -25,6 +25,7 @@ private:
   int choose_action(const std::vector<float> &probs);
 
   std::vector<Episode> history;
+  int episode_count = 0;
 
   float learning_rate = 0.0001;
 };

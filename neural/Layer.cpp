@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include <random>
+#include <fstream>
 
 Layer::Layer(int n_inputs, int n_neurons)
 {
@@ -64,4 +65,28 @@ std::vector<float> Layer::backward_pass(const std::vector<float> &grad_output, f
   }
 
   return grad_input;
+}
+
+void Layer::save(std::ofstream &file)
+{
+  for (size_t i = 0; i < weights.size(); i++)
+    for (size_t j = 0; j < weights[i].size(); j++)
+      file << weights[i][j] << " ";
+
+  file << "\n";
+
+  for (size_t i = 0; i < weights.size(); i++)
+    file << bias[i] << " ";
+
+  file << "\n";
+}
+
+void Layer::load(std::ifstream &file)
+{
+  for (size_t i = 0; i < weights.size(); i++)
+    for (size_t j = 0; j < weights[i].size(); j++)
+      file >> weights[i][j];
+
+  for (size_t i = 0; i < weights.size(); i++)
+    file >> bias[i];
 }

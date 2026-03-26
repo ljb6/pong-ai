@@ -1,5 +1,4 @@
 #include "Agent.h"
-#include <algorithm>
 #include <iostream>
 #include <random>
 
@@ -7,6 +6,8 @@ Agent::Agent(std::vector<int> n_layers, float width, float height) : nn(n_layers
 {
   this->width = width;
   this->height = height;
+
+  nn.load("weights.txt");
 }
 
 // 0 - stop
@@ -84,4 +85,12 @@ void Agent::learn(int reward)
   }
 
   history.clear();
+
+  episode_count++;
+
+  if (episode_count >= 100)
+  {
+    nn.save("weights.txt");
+    episode_count = 0;
+  }
 }
