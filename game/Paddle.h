@@ -21,7 +21,7 @@ private:
   float width = 10;
   float height = 100;
 
-  float velocity = 300;
+  float velocity = 600;
 
   float max_y;
 };
