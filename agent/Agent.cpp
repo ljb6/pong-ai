@@ -51,6 +51,7 @@ int Agent::decide(const std::vector<float> &state)
   int choosen_action = choose_action(forwarded);
 
   Episode episode = {
+      normalized,
       forwarded,
       choosen_action};
 
@@ -59,7 +60,7 @@ int Agent::decide(const std::vector<float> &state)
   return choosen_action;
 }
 
-std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, int selected_i, int reward)
+std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, int selected_i, float reward)
 {
   size_t size = forward_res.size();
   std::vector<float> grad(size);
@@ -77,18 +78,21 @@ std::vector<float> Agent::compute_grad(const std::vector<float> &forward_res, in
 
 void Agent::learn(int reward)
 {
-  size_t h_size = history.size();
-  for (size_t i = 0; i < h_size; i++)
+  float discounted_reward = reward;
+
+  for (int i = history.size() - 1; i >= 0; i--)
   {
-    std::vector<float> grad = compute_grad(history[i].probs, history[i].decision, reward);
+    nn.forward(history[i].state);
+    std::vector<float> grad = compute_grad(history[i].probs, history[i].decision, discounted_reward);
     nn.backward(grad, learning_rate);
+    discounted_reward *= discount_factor;
   }
 
   history.clear();
 
   episode_count++;
 
-  if (episode_count >= 100)
+  if (episode_count >= 10)
   {
     nn.save("weights.txt");
     episode_count = 0;

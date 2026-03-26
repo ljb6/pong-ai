@@ -3,6 +3,7 @@
 
 struct Episode
 {
+  std::vector<float> state;
   std::vector<float> probs;
   int decision;
 };
@@ -13,7 +14,7 @@ public:
   Agent(std::vector<int> n_layers, float width, float height);
 
   int decide(const std::vector<float> &state);
-  std::vector<float> compute_grad(const std::vector<float> &forward_res, int selected_i, int reward);
+  std::vector<float> compute_grad(const std::vector<float> &forward_res, int selected_i, float reward);
   void learn(int reward);
 
 private:
@@ -28,4 +29,5 @@ private:
   int episode_count = 0;
 
   float learning_rate = 0.0001;
+  float discount_factor = 0.99;
 };

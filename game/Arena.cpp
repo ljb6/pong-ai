@@ -32,9 +32,12 @@ void Arena::update(sf::Time time)
 {
   ball.update(time);
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+  float paddle_1_center = paddle_1.get_position().y + paddle_1.get_size().y / 2;
+  float ball_center = ball.get_position().y + ball.get_diameter() / 2;
+
+  if (ball_center < paddle_1_center)
     paddle_1.move_up(time);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+  else if (ball_center > paddle_1_center)
     paddle_1.move_down(time);
 
   int paddle_2_move = agent.decide({paddle_1.get_position().y,
@@ -56,15 +59,7 @@ void Arena::update(sf::Time time)
   {
     ball.set_x(paddle_2.get_position().x - ball.get_diameter());
     ball.invert_x();
-
-    if (!already_learned)
-    {
-      agent.learn(1);
-      already_learned = true;
-    }
   }
-  else
-    already_learned = false;
 
   check_score();
 }
@@ -89,15 +84,13 @@ void Arena::check_score()
   if (ball_position.x < 0)
   {
     paddle_2_points++;
-
+    agent.learn(1);
     reset_arena();
   }
   else if (ball_position.x > width)
   {
     paddle_1_points++;
-
     agent.learn(-1);
-
     reset_arena();
   }
 }

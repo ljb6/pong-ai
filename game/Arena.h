@@ -19,7 +19,6 @@ private:
   float paddle_width = 10;
 
   Agent agent;
-  bool already_learned = false;
 
   Ball ball;
 
