@@ -61,7 +61,17 @@ void Ball::set_position(float x_position, float y_position)
   this->y_position = y_position;
 }
 
+void Ball::set_x(float x)
+{
+  x_position = x;
+}
+
 sf::Vector2f Ball::get_position()
 {
   return {x_position, y_position};
+}
+
+float Ball::get_x_velocity()
+{
+  return x_velocity;
 }

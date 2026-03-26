@@ -14,8 +14,12 @@ public:
 
   float get_radius();
   float get_diameter();
+
   void set_position(float x_position, float y_position);
   sf::Vector2f get_position();
+
+  void set_x(float x);
+  float get_x_velocity();
 
 private:
   float radius = 15;

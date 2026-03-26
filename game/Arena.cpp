@@ -46,19 +46,25 @@ void Arena::update(sf::Time time)
   else if (paddle_2_move == 2)
     paddle_2.move_down(time);
 
-  if (check_paddle_collision(paddle_2) && !already_learned)
+  if (check_paddle_collision(paddle_1) && ball.get_x_velocity() < 0)
   {
-    agent.learn(1);
-    already_learned = true;
-  }
-
-  if (!check_paddle_collision(paddle_1) && !check_paddle_collision(paddle_2))
-    already_learned = false;
-
-  if (check_paddle_collision(paddle_1) or check_paddle_collision(paddle_2))
-  {
+    ball.set_x(paddle_1.get_position().x + paddle_1.get_size().x);
     ball.invert_x();
   }
+
+  if (check_paddle_collision(paddle_2) && ball.get_x_velocity() > 0)
+  {
+    ball.set_x(paddle_2.get_position().x - ball.get_diameter());
+    ball.invert_x();
+
+    if (!already_learned)
+    {
+      agent.learn(1);
+      already_learned = true;
+    }
+  }
+  else
+    already_learned = false;
 
   check_score();
 }
