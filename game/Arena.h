@@ -17,6 +17,7 @@ private:
   float height;
 
   Agent *agent;
+  bool already_learned = false;
 
   Ball *ball;
 

@@ -58,6 +58,15 @@ void Arena::update(sf::Time time)
   else if (paddle_2_move == 2)
     paddle_2->move_down(time);
 
+  if (check_paddle_collision(paddle_2) && !already_learned)
+  {
+    agent->learn(1);
+    already_learned = true;
+  }
+
+  if (!check_paddle_collision(paddle_1) && !check_paddle_collision(paddle_2))
+    already_learned = false;
+
   if (check_paddle_collision(paddle_1) or check_paddle_collision(paddle_2))
   {
     ball->invert_x();
@@ -86,8 +95,6 @@ void Arena::check_score()
   if (ball_position.x < 0)
   {
     paddle_2_points++;
-
-    agent->learn(1);
 
     reset_arena();
   }
