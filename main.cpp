@@ -1,44 +1,62 @@
 #include <SFML/Graphics.hpp>
 #include "game/Arena.h"
-// #include "../neural/NeuralNetwork.h"
-// #include <iostream>
+#include <iostream>
+#include <unistd.h>
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
-int main(void)
+int main(int argc, char *argv[])
 {
-  // std::vector<float> simulation = {8.4, 2.1, 2, 8.6};
-  // NeuralNetwork nn({4, 8, 3});
-  // std::vector<float> v = nn.forward(simulation);
+  int opt;
+  std::string output;
 
-  // for (auto x : v)
-  //   std::cout << x << " ";
-  // std::cout << "\n";
+  bool is_render_activated = true;
 
-  sf::RenderWindow window(sf::VideoMode({WIDTH, HEIGHT}), "SFML window");
+  while ((opt = getopt(argc, argv, "n")) != -1)
+  {
+    switch (opt)
+    {
+    case 'i':
+      std::cout << "Render deactivated\n";
+      is_render_activated = false;
+      break;
+    }
+  }
+
+  sf::RenderWindow window;
+  if (is_render_activated)
+    window.create(sf::VideoMode({WIDTH, HEIGHT}), "PongAI");
 
   sf::Clock clock;
 
   Arena arena(WIDTH, HEIGHT);
 
-  while (window.isOpen())
+  bool running = true;
+  while (running)
   {
     sf::Time delta_time = clock.restart();
 
-    while (const std::optional event = window.pollEvent())
+    if (is_render_activated)
     {
-      if (event->is<sf::Event::Closed>())
-        window.close();
+      if (!window.isOpen())
+        break;
+
+      while (const std::optional event = window.pollEvent())
+      {
+        if (event->is<sf::Event::Closed>())
+          running = false;
+      }
     }
 
     arena.update(delta_time);
 
-    window.clear();
-
-    arena.draw(&window);
-
-    window.display();
+    if (is_render_activated)
+    {
+      window.clear();
+      arena.draw(&window);
+      window.display();
+    }
   }
 
   return 0;
