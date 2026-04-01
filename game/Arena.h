@@ -34,5 +34,6 @@ private:
 
   void check_score();
   bool check_paddle_collision(Paddle &paddle);
+  float get_hit_position(Paddle &paddle);
   void reset_arena();
 };

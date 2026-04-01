@@ -1,4 +1,5 @@
 #include "Arena.h"
+#include <algorithm>
 #include <random>
 
 Arena::Arena(float width, float height)
@@ -52,13 +53,15 @@ void Arena::update(sf::Time time)
   if (check_paddle_collision(paddle_1) && ball.get_x_velocity() < 0)
   {
     ball.set_x(paddle_1.get_position().x + paddle_1.get_size().x);
-    ball.invert_x();
+    float hit_position = get_hit_position(paddle_1);
+    ball.bounce_off_paddle(hit_position, 1);
   }
 
   if (check_paddle_collision(paddle_2) && ball.get_x_velocity() > 0)
   {
     ball.set_x(paddle_2.get_position().x - ball.get_diameter());
-    ball.invert_x();
+    float hit_position = get_hit_position(paddle_2);
+    ball.bounce_off_paddle(hit_position, -1);
   }
 
   check_score();
@@ -95,11 +98,26 @@ void Arena::check_score()
   }
 }
 
+float Arena::get_hit_position(Paddle &paddle)
+{
+  float ball_center = ball.get_position().y + ball.get_radius();
+  float paddle_center = paddle.get_position().y + paddle.get_size().y / 2;
+  float half_paddle = paddle.get_size().y / 2;
+  float relative = (ball_center - paddle_center) / half_paddle;
+  return std::max(-1.0f, std::min(1.0f, relative));
+}
+
 void Arena::reset_arena()
 {
   paddle_1.set_position(height / 2 - paddle_1.get_size().y / 2);
   paddle_2.set_position(height / 2 - paddle_2.get_size().y / 2);
   static std::mt19937 rng(std::random_device{}());
-  std::uniform_real_distribution<float> dist(ball.get_diameter(), height - ball.get_diameter());
-  ball.set_position(width / 2, dist(rng));
+  std::uniform_real_distribution<float> dist_y(ball.get_diameter(), height - ball.get_diameter());
+  std::uniform_int_distribution<int> dist_dir(0, 1);
+  ball.set_position(width / 2, dist_y(rng));
+  ball.reset_velocity();
+  if (dist_dir(rng) == 0)
+    ball.invert_x();
+  if (dist_dir(rng) == 0)
+    ball.invert_y();
 }
