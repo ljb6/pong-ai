@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
   {
     switch (opt)
     {
-    case 'i':
+    case 'n':
       std::cout << "Render deactivated\n";
       is_render_activated = false;
       break;
